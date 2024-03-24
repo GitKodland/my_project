@@ -18,4 +18,15 @@ async def hello(ctx):
 async def heh(ctx, count_heh = 5):
     await ctx.send("he" * count_heh)
 
+@bot.command()
+async def check(ctx):
+    if ctx.message.attachments:
+        for attachment in ctx.message.attachments:
+            file_name = attachment.filename
+            file_url = attachment.url
+            await attachment.save(f"./{attachment.filename}")
+            await ctx.send(f"Saved the image to ./{attachment.filename}")
+    else:
+        await ctx.send("You forgot to upload the image :(")
+        
 bot.run("TOKEN")
